@@ -45,6 +45,8 @@ fi
 if [[ "$mode" == "complete" ]]; then
   echo "codex stub success"
   echo "<promise>COMPLETE</promise>"
+elif [[ "$mode" == "mentioned-token" ]]; then
+  echo "not outputting <promise>COMPLETE</promise> because stories remain"
 else
   echo "codex stub still working"
 fi
@@ -84,7 +86,7 @@ run_success_case() {
 
 run_max_iteration_case() {
   local dir
-  dir="$(setup_fixture max-iterations working)"
+  dir="$(setup_fixture max-iterations mentioned-token)"
   local output="$dir/output.log"
   local invocation_log="$dir/invocations.log"
   local rc=0
@@ -112,6 +114,7 @@ run_max_iteration_case() {
   fi
 
   grep -q "^exec\\b" "$invocation_log"
+  grep -q "not outputting <promise>COMPLETE</promise> because stories remain" "$output"
   grep -q "Ralph reached max iterations (2)" "$output"
 }
 
