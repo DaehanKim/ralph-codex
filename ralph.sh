@@ -105,7 +105,8 @@ for i in $(seq 1 $MAX_ITERATIONS); do
   
   # Check for completion signal
   CLEAN_OUTPUT=$(echo "$OUTPUT" | strip_ansi)
-  if echo "$CLEAN_OUTPUT" | grep -q "<promise>COMPLETE</promise>"; then
+  # Only treat completion as valid when the token appears on its own line.
+  if echo "$CLEAN_OUTPUT" | grep -Eq '^[[:space:]]*<promise>COMPLETE</promise>[[:space:]]*$'; then
     echo ""
     echo "Ralph completed all tasks!"
     echo "Completed at iteration $i of $MAX_ITERATIONS"
