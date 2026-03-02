@@ -5,7 +5,7 @@
 set -e
 
 # Parse arguments
-TOOL="amp"  # Default to amp for backwards compatibility
+TOOL="codex"  # Default to codex for this harness
 MAX_ITERATIONS=10
 
 strip_ansi() {
